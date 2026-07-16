@@ -9,13 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as KnowledgeCenterRouteImport } from './routes/knowledge-center'
+import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as CalculatorsRouteImport } from './routes/calculators'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
+import { Route as KnowledgeCenterArticleIdRouteImport } from './routes/knowledge-center.$articleId'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -26,14 +41,49 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeCenterRoute = KnowledgeCenterRouteImport.update({
+  id: '/knowledge-center',
+  path: '/knowledge-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeLoansRoute = HomeLoansRouteImport.update({
+  id: '/home-loans',
+  path: '/home-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorsRoute = CalculatorsRouteImport.update({
+  id: '/calculators',
+  path: '/calculators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -46,64 +96,156 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
+  id: '/$projectId',
+  path: '/$projectId',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const KnowledgeCenterArticleIdRoute =
+  KnowledgeCenterArticleIdRouteImport.update({
+    id: '/$articleId',
+    path: '/$articleId',
+    getParentRoute: () => KnowledgeCenterRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
+  '/calculators': typeof CalculatorsRoute
+  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
-  '/projects': typeof ProjectsRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/knowledge-center': typeof KnowledgeCenterRouteWithChildren
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/knowledge-center/$articleId': typeof KnowledgeCenterArticleIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
+  '/calculators': typeof CalculatorsRoute
+  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
-  '/projects': typeof ProjectsRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/knowledge-center': typeof KnowledgeCenterRouteWithChildren
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/knowledge-center/$articleId': typeof KnowledgeCenterArticleIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRoute
+  '/calculators': typeof CalculatorsRoute
+  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
-  '/projects': typeof ProjectsRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/knowledge-center': typeof KnowledgeCenterRouteWithChildren
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/knowledge-center/$articleId': typeof KnowledgeCenterArticleIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/blog'
+    | '/calculators'
+    | '/compare'
     | '/contact'
+    | '/faq'
     | '/gallery'
+    | '/home-loans'
+    | '/knowledge-center'
+    | '/privacy-policy'
     | '/projects'
     | '/sitemap.xml'
+    | '/terms'
+    | '/knowledge-center/$articleId'
+    | '/projects/$projectId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/gallery' | '/projects' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/calculators'
+    | '/compare'
+    | '/contact'
+    | '/faq'
+    | '/gallery'
+    | '/home-loans'
+    | '/knowledge-center'
+    | '/privacy-policy'
+    | '/projects'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/knowledge-center/$articleId'
+    | '/projects/$projectId'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/blog'
+    | '/calculators'
+    | '/compare'
     | '/contact'
+    | '/faq'
     | '/gallery'
+    | '/home-loans'
+    | '/knowledge-center'
+    | '/privacy-policy'
     | '/projects'
     | '/sitemap.xml'
+    | '/terms'
+    | '/knowledge-center/$articleId'
+    | '/projects/$projectId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BlogRoute: typeof BlogRoute
+  CalculatorsRoute: typeof CalculatorsRoute
+  CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
   GalleryRoute: typeof GalleryRoute
-  ProjectsRoute: typeof ProjectsRoute
+  HomeLoansRoute: typeof HomeLoansRoute
+  KnowledgeCenterRoute: typeof KnowledgeCenterRouteWithChildren
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProjectsRoute: typeof ProjectsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -118,6 +260,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge-center': {
+      id: '/knowledge-center'
+      path: '/knowledge-center'
+      fullPath: '/knowledge-center'
+      preLoaderRoute: typeof KnowledgeCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-loans': {
+      id: '/home-loans'
+      path: '/home-loans'
+      fullPath: '/home-loans'
+      preLoaderRoute: typeof HomeLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -125,11 +288,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculators': {
+      id: '/calculators'
+      path: '/calculators'
+      fullPath: '/calculators'
+      preLoaderRoute: typeof CalculatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -146,16 +337,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/knowledge-center/$articleId': {
+      id: '/knowledge-center/$articleId'
+      path: '/$articleId'
+      fullPath: '/knowledge-center/$articleId'
+      preLoaderRoute: typeof KnowledgeCenterArticleIdRouteImport
+      parentRoute: typeof KnowledgeCenterRoute
+    }
   }
 }
+
+interface KnowledgeCenterRouteChildren {
+  KnowledgeCenterArticleIdRoute: typeof KnowledgeCenterArticleIdRoute
+}
+
+const KnowledgeCenterRouteChildren: KnowledgeCenterRouteChildren = {
+  KnowledgeCenterArticleIdRoute: KnowledgeCenterArticleIdRoute,
+}
+
+const KnowledgeCenterRouteWithChildren = KnowledgeCenterRoute._addFileChildren(
+  KnowledgeCenterRouteChildren,
+)
+
+interface ProjectsRouteChildren {
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BlogRoute: BlogRoute,
+  CalculatorsRoute: CalculatorsRoute,
+  CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
   GalleryRoute: GalleryRoute,
-  ProjectsRoute: ProjectsRoute,
+  HomeLoansRoute: HomeLoansRoute,
+  KnowledgeCenterRoute: KnowledgeCenterRouteWithChildren,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProjectsRoute: ProjectsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

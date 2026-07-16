@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/royal-logo.jpg.asset.json";
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="border-t border-border/60 bg-card">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
         <div className="md:col-span-1">
-          <img src={logo.url} alt="Royal Reality Groups" className="mb-4 h-16 w-16 rounded-full object-cover" width={64} height={64} loading="lazy" />
+          <img src="/company logo.jpg" alt="Royal Reality Groups" className="mb-4 h-16 w-16 rounded-full object-cover" width={64} height={64} loading="lazy" />
           <p className="text-sm leading-relaxed text-muted-foreground">
             Transforming dreams into reality with precision and integrity. Your key to a dream home.
           </p>
@@ -19,7 +18,11 @@ export function Footer() {
             <li><Link to="/" className="hover:text-primary">Home</Link></li>
             <li><Link to="/about" className="hover:text-primary">About Us</Link></li>
             <li><Link to="/projects" className="hover:text-primary">Projects</Link></li>
-            <li><Link to="/gallery" className="hover:text-primary">Gallery</Link></li>
+            <li><Link to="/calculators" className="hover:text-primary">EMI Calculator</Link></li>
+            <li><Link to="/home-loans" className="hover:text-primary">Loan Assistance</Link></li>
+            <li><Link to="/blog" className="hover:text-primary">Blog</Link></li>
+            <li><Link to="/knowledge-center" className="hover:text-primary">Knowledge Center</Link></li>
+            <li><Link to="/faq" className="hover:text-primary">FAQ</Link></li>
             <li><Link to="/contact" className="hover:text-primary">Contact Us</Link></li>
           </ul>
         </div>
@@ -42,6 +45,25 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
+        <div className="mb-3 flex items-center justify-center gap-4">
+          <a href="https://www.instagram.com/royalrealitygroups/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-primary">
+            <Instagram className="h-5 w-5" />
+          </a>
+          <a href="https://www.facebook.com/royalrealitygroups/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-primary">
+            <Facebook className="h-5 w-5" />
+          </a>
+          <a href="https://www.linkedin.com/company/royalrealitygroups/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-primary">
+            <Linkedin className="h-5 w-5" />
+          </a>
+          <a href="https://x.com/royalrealitygrp" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-muted-foreground hover:text-primary">
+            <Twitter className="h-5 w-5" />
+          </a>
+        </div>
+        <div className="mb-2 flex items-center justify-center gap-4">
+          <Link to="/privacy-policy" className="hover:text-primary">Privacy Policy</Link>
+          <span>|</span>
+          <Link to="/terms" className="hover:text-primary">Terms & Conditions</Link>
+        </div>
         © {new Date().getFullYear()} Royal Reality Groups. Key to your dream home.
       </div>
     </footer>

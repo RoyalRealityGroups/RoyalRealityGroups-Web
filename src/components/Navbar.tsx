@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/royal-logo.jpg.asset.json";
 
 const navItems = [
   { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
+  { label: "About", to: "/" },
   { label: "Projects", to: "/projects" },
-  { label: "Gallery", to: "/gallery" },
+  { label: "Calculators", to: "/calculators" },
+  { label: "Blog", to: "/blog" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -18,7 +18,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo.url} alt="Royal Reality Groups" className="h-12 w-12 rounded-full object-cover" width={48} height={48} />
+          <img src="/company logo.jpg" alt="Royal Reality Groups" className="h-12 w-12 rounded-full object-cover" width={48} height={48} />
           <span className="hidden font-serif text-xl tracking-wide text-gold-gradient sm:block">
             Royal Reality Groups
           </span>
