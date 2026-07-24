@@ -124,34 +124,34 @@ function FAQ() {
 
   return (
     <>
-      <section className="border-b border-border/60 bg-card py-20 text-center">
+      <section className="bg-[#F8FAFC] py-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-sm uppercase tracking-[0.3em] text-primary">Got Questions?</p>
-          <h1 className="mt-4 font-serif text-5xl text-foreground md:text-6xl">Frequently Asked <span className="text-gold-gradient">Questions</span></h1>
-          <p className="mx-auto mt-5 text-muted-foreground">Find answers to common questions about buying property with Royal Reality Groups.</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-[#D4AF37]">Got Questions?</p>
+          <h1 className="mt-4 font-serif text-5xl text-[#0B1F3A] md:text-6xl">Frequently Asked <span className="text-[#D4AF37]">Questions</span></h1>
+          <p className="mx-auto mt-5 text-[#6B7280]">Find answers to common questions about buying property with Royal Reality Groups.</p>
         </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-16">
         {faqs.map((section) => (
           <div key={section.category} className="mb-10">
-            <h2 className="mb-4 font-serif text-2xl text-foreground">{section.category}</h2>
+            <h2 className="mb-4 font-serif text-2xl text-[#0B1F3A]">{section.category}</h2>
             <div className="space-y-3">
               {section.questions.map((faq, i) => {
                 const id = `${section.category}-${i}`;
                 const isOpen = openItems.includes(id);
                 return (
-                  <div key={id} className="rounded-md border border-border/60 bg-card">
+                  <div key={id} className="rounded-2xl border border-[#E5E7EB] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
                     <button
                       onClick={() => toggle(id)}
                       className="flex w-full items-center justify-between px-6 py-4 text-left"
                     >
-                      <span className="text-sm font-medium text-foreground">{faq.q}</span>
-                      <ChevronDown className={`h-5 w-5 flex-shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                      <span className="text-sm font-medium text-[#1F2937]">{faq.q}</span>
+                      <ChevronDown className={`h-5 w-5 flex-shrink-0 text-[#6B7280] transition-transform ${isOpen ? "rotate-180" : ""}`} />
                     </button>
                     {isOpen && (
-                      <div className="border-t border-border/60 px-6 py-4">
-                        <p className="text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
+                      <div className="border-t border-[#E5E7EB] px-6 py-4">
+                        <p className="text-sm leading-relaxed text-[#6B7280]">{faq.a}</p>
                       </div>
                     )}
                   </div>

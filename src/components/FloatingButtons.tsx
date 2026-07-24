@@ -22,7 +22,7 @@ export function FloatingButtons() {
         <a
           href="tel:+917993999958"
           aria-label="Call Now"
-          className="flex items-center gap-2 rounded-full bg-gold-gradient px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg transition-transform hover:scale-105"
+          className="flex items-center gap-2 rounded-full bg-[#0B1F3A] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
         >
           <Phone className="h-4 w-4" /> Call Now
         </a>

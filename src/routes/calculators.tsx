@@ -17,12 +17,20 @@ function Calculators() {
   const [activeCalc, setActiveCalc] = useState<string>("emi");
 
   return (
-    <>
-      <section className="border-b border-border/60 bg-card py-20 text-center">
-        <div className="mx-auto max-w-3xl px-6">
-          <p className="text-sm uppercase tracking-[0.3em] text-primary">Plan Your Investment</p>
-          <h1 className="mt-4 font-serif text-5xl text-foreground md:text-6xl">Online <span className="text-gold-gradient">Calculators</span></h1>
-          <p className="mx-auto mt-5 text-muted-foreground">Use our free calculators to plan your real estate investment.</p>
+    <div className="bg-white">
+      <section className="relative w-full py-20 md:py-28 bg-[#0B1528] overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45 transition-transform duration-700 hover:scale-105" style={{ backgroundImage: `url('/photo-1554224155-8d04cb21cd6c.avif')` }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1528]/50 via-[#0B1528]/70 to-[#0B1528]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-amber-500/15 blur-[100px] rounded-full pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-6 text-center z-10">
+          <span className="text-amber-400 font-semibold tracking-[0.25em] text-xs sm:text-sm uppercase mb-3 block drop-shadow">PLAN YOUR INVESTMENT</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-white mb-6 drop-shadow-lg">Online <span className="text-amber-500">Calculators</span></h1>
+          <p className="text-gray-200 text-base leading-relaxed max-w-xl mx-auto mb-6">Use our free calculators to plan your real estate investment, estimate monthly EMIs, and assess loan eligibility with precision.</p>
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-[1px] w-12 bg-amber-500/70" />
+            <div className="w-2 h-2 rotate-45 bg-amber-500" />
+            <div className="h-[1px] w-12 bg-amber-500/70" />
+          </div>
         </div>
       </section>
 
@@ -58,7 +66,7 @@ function Calculators() {
           {activeCalc === "investment" && <InvestmentCalculator />}
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

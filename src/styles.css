@@ -31,33 +31,33 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Jost", system-ui, sans-serif;
+  --font-serif: "Poppins", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.16 0.008 60);
-  --foreground: oklch(0.95 0.01 85);
-  --card: oklch(0.2 0.01 60);
-  --card-foreground: oklch(0.95 0.01 85);
-  --popover: oklch(0.2 0.01 60);
-  --popover-foreground: oklch(0.95 0.01 85);
-  --primary: oklch(0.78 0.11 82);
-  --primary-foreground: oklch(0.16 0.008 60);
-  --secondary: oklch(0.24 0.012 60);
-  --secondary-foreground: oklch(0.95 0.01 85);
-  --muted: oklch(0.24 0.012 60);
-  --muted-foreground: oklch(0.72 0.02 80);
-  --accent: oklch(0.78 0.11 82);
-  --accent-foreground: oklch(0.16 0.008 60);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0.003 247);
-  --border: oklch(0.3 0.015 70);
-  --input: oklch(0.3 0.015 70);
-  --ring: oklch(0.78 0.11 82);
-  --gold: oklch(0.78 0.11 82);
-  --gold-soft: oklch(0.88 0.08 88);
+  --radius: 0.75rem;
+  --background: #FFFFFF;
+  --foreground: #1F2937;
+  --card: #F9FAFB;
+  --card-foreground: #1F2937;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F2937;
+  --primary: #0B1F3A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3F4F6;
+  --secondary-foreground: #1F2937;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #D4AF37;
+  --accent-foreground: #0B1F3A;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #D4AF37;
+  --gold: #D4AF37;
+  --gold-soft: #E8D48B;
 }
 
 @layer base {
@@ -73,16 +73,22 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  button, a[class*="rounded"] {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 600;
   }
 }
 
 @utility text-gold-gradient {
-  background: linear-gradient(135deg, oklch(0.88 0.08 88), oklch(0.72 0.12 78));
+  background: linear-gradient(135deg, #D4AF37, #B8960C);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 @utility bg-gold-gradient {
-  background: linear-gradient(135deg, oklch(0.86 0.09 86), oklch(0.7 0.12 76));
+  background: linear-gradient(135deg, #D4AF37, #B8960C);
 }

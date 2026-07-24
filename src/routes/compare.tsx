@@ -43,11 +43,11 @@ function Compare() {
 
   return (
     <>
-      <section className="border-b border-border/60 bg-card py-20 text-center">
+      <section className="bg-[#F8FAFC] py-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-sm uppercase tracking-[0.3em] text-primary">Make Informed Decisions</p>
-          <h1 className="mt-4 font-serif text-5xl text-foreground md:text-6xl">Compare <span className="text-gold-gradient">Properties</span></h1>
-          <p className="mx-auto mt-5 text-muted-foreground">Select up to 3 properties to compare them side by side.</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-[#D4AF37]">Make Informed Decisions</p>
+          <h1 className="mt-4 font-serif text-5xl text-[#0B1F3A] md:text-6xl">Compare <span className="text-[#D4AF37]">Properties</span></h1>
+          <p className="mx-auto mt-5 text-[#6B7280]">Select up to 3 properties to compare them side by side.</p>
         </div>
       </section>
 
