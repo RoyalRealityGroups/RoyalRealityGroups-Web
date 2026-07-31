@@ -29,9 +29,9 @@ const whyChooseUs = [
 ];
 
 const projects = [
-  { img: project1, title: "Iconica", desc: "Premium luxury apartments in the heart of Visakhapatnam. World-class amenities, stunning architecture, and unmatched lifestyle.", location: "Visakhapatnam" },
-  { img: project2, title: "Integral", desc: "Thoughtfully designed residential spaces with modern amenities, green landscapes, and excellent connectivity.", location: "Visakhapatnam" },
-  { img: project3, title: "Siri Nirman – Blue Arena", desc: "A landmark project offering spacious homes with contemporary design, premium finishes, and prime location advantage.", location: "Visakhapatnam" },
+  { img: project1, title: "Iconica Capitol & Crown", id: "iconica-capitol-and-crown", desc: "Ultra-luxury residences with private gardens, smart home features, and world-class amenities in a premium gated community.", location: "Visakhapatnam" },
+  { img: project2, title: "Integral's Sunrise City", id: "integrals-sunrise-city", desc: "Premium gated community villas with lush green surroundings, modern amenities, and excellent connectivity near Anandapuram.", location: "Visakhapatnam" },
+  { img: project3, title: "Siri Nirman – Blue Arena", id: "siri-nirman-blue-arena", desc: "A landmark project offering spacious homes with contemporary design, premium finishes, and prime location advantage.", location: "Visakhapatnam" },
 ];
 
 const testimonials = [
@@ -204,7 +204,7 @@ function Index() {
                     <Link to="/contact" className="flex-1 rounded-lg bg-[#D4AF37] px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B] transition-colors">
                       Enquire Now
                     </Link>
-                    <Link to="/projects" className="flex-1 rounded-lg border border-[#14345A] px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
+                    <Link to={`/projects/${p.id}`} className="flex-1 rounded-lg border border-[#14345A] px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
                       Know More
                     </Link>
                   </div>
