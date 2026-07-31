@@ -62,9 +62,9 @@ function KnowledgeArticlePage() {
 
   return (
     <>
-      <section className="border-b border-border/60 bg-card py-16">
+      <section className="border-b border-border/60 bg-card pt-24 pb-8">
         <div className="mx-auto max-w-4xl px-6">
-          <Link to="/knowledge-center" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
+          <Link to="/knowledge-center" className="inline-flex items-center gap-2 rounded-lg border border-[#14345A] px-4 py-2 text-sm font-medium text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
             <ArrowLeft className="h-4 w-4" /> Back to Knowledge Center
           </Link>
           <span className="mt-4 block text-xs uppercase tracking-widest text-primary">{article.category}</span>

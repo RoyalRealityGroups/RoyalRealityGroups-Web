@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Building, Shield, BadgePercent, Clock, Users, FileCheck } from "lucide-react";
+import { ArrowRight, Building, Shield, BadgePercent, Clock, Users, FileCheck, MessageCircle, X, Send } from "lucide-react";
 
 export const Route = createFileRoute("/home-loans")({
   component: HomeLoans,
@@ -31,9 +32,102 @@ const services = [
 ];
 
 function HomeLoans() {
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatStep, setChatStep] = useState(0);
+  const [chatData, setChatData] = useState({
+    name: '', mobile: '', email: '', occupation: '', monthlyIncome: '', propertyBudget: '', loanAmount: '', preferredBank: ''
+  });
+  const [chatSubmitted, setChatSubmitted] = useState(false);
+
+  // Auto-open chatbot after 2 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => setChatOpen(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const chatQuestions = [
+    { key: 'name', question: "👋 Hi! I'm your Home Loan Assistant. What's your name?", placeholder: "Enter your name" },
+    { key: 'mobile', question: `Nice to meet you, ${chatData.name || 'there'}! What's your mobile number?`, placeholder: "Enter mobile number" },
+    { key: 'email', question: "Great! What's your email address?", placeholder: "Enter email (optional)" },
+    { key: 'occupation', question: "What's your occupation?", placeholder: "e.g., Salaried, Self-Employed, Business" },
+    { key: 'monthlyIncome', question: "What's your monthly income (approx)?", placeholder: "e.g., ₹50,000" },
+    { key: 'propertyBudget', question: "What's your property budget?", placeholder: "e.g., ₹50,00,000" },
+    { key: 'loanAmount', question: "How much loan amount do you need?", placeholder: "e.g., ₹40,00,000" },
+    { key: 'preferredBank', question: "Any preferred bank? (Optional)", placeholder: "e.g., SBI, HDFC, or skip" },
+  ];
+
+  const handleChatSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (chatStep < chatQuestions.length - 1) {
+      setChatStep(chatStep + 1);
+    } else {
+      setChatSubmitted(true);
+    }
+  };
+
   return (
     <>
-      <section className="border-b border-border/60 bg-card py-20 text-center">
+      {/* Home Loan Chatbot */}
+      {chatOpen && (
+        <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl">
+          <div className="flex items-center justify-between rounded-t-2xl bg-[#1A1A2E] px-4 py-3">
+            <div className="flex items-center gap-2">
+              <MessageCircle className="h-5 w-5 text-[#D4AF37]" />
+              <span className="text-sm font-semibold text-white">Home Loan Assistant</span>
+            </div>
+            <button onClick={() => setChatOpen(false)} className="text-white/70 hover:text-white" aria-label="Close chat">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="p-4 max-h-[300px] overflow-y-auto">
+            {chatSubmitted ? (
+              <div className="text-center py-4">
+                <div className="mx-auto h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                  <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <p className="text-sm font-medium text-[#1F2937]">Thank you, {chatData.name}!</p>
+                <p className="mt-1 text-xs text-[#6B7280]">Our loan expert will contact you within 24 hours.</p>
+              </div>
+            ) : (
+              <>
+                <div className="mb-3 rounded-lg bg-[#F3F4F6] p-3">
+                  <p className="text-sm text-[#1F2937]">{chatQuestions[chatStep].question}</p>
+                </div>
+                <form onSubmit={handleChatSubmit} className="flex gap-2">
+                  <input
+                    type={chatQuestions[chatStep].key === 'mobile' ? 'tel' : chatQuestions[chatStep].key === 'email' ? 'email' : 'text'}
+                    placeholder={chatQuestions[chatStep].placeholder}
+                    value={chatData[chatQuestions[chatStep].key as keyof typeof chatData]}
+                    onChange={(e) => setChatData({ ...chatData, [chatQuestions[chatStep].key]: e.target.value })}
+                    required={chatQuestions[chatStep].key !== 'email' && chatQuestions[chatStep].key !== 'preferredBank'}
+                    className="flex-1 rounded-lg border border-[#D1D5DB] px-3 py-2 text-sm outline-none focus:border-[#D4AF37]"
+                    autoFocus
+                  />
+                  <button type="submit" className="rounded-lg bg-[#D4AF37] p-2 text-[#1A1A2E] hover:bg-[#C79A1B]">
+                    <Send className="h-4 w-4" />
+                  </button>
+                </form>
+                <div className="mt-2 flex gap-1">
+                  {chatQuestions.map((_, i) => (
+                    <div key={i} className={`h-1 flex-1 rounded-full ${i <= chatStep ? 'bg-[#D4AF37]' : 'bg-[#E5E7EB]'}`} />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Re-open chat button if closed */}
+      {!chatOpen && (
+        <button
+          onClick={() => setChatOpen(true)}
+          className="fixed bottom-20 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-full bg-[#1A1A2E] px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-[#2A2A4E] transition-colors"
+        >
+          <MessageCircle className="h-5 w-5 text-[#D4AF37]" /> Loan Assist
+        </button>
+      )}
+      <section className="border-b border-border/60 bg-card pt-32 pb-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-sm uppercase tracking-[0.3em] text-primary">Financial Assistance</p>
           <h1 className="mt-4 font-serif text-5xl text-foreground md:text-6xl">Home Loan & <span className="text-gold-gradient">Banking</span></h1>

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useMatch } from "@tanstack/react-router";
-import { BookOpen, FileText, ArrowRight } from "lucide-react";
+import { ArrowLeft, BookOpen, FileText, ArrowRight } from "lucide-react";
 import { knowledgeArticles } from "@/lib/knowledge-center-data";
 
 export const Route = createFileRoute("/knowledge-center")({
@@ -37,8 +37,13 @@ function KnowledgeCenterLayout() {
 function KnowledgeCenterListing() {
   return (
     <>
-      <section className="border-b border-border/60 bg-card py-20 text-center">
+      <section className="border-b border-border/60 bg-card pt-24 pb-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
+          <div className="mb-6 flex justify-start">
+            <Link to="/" className="inline-flex items-center gap-2 rounded-lg border border-[#14345A] px-4 py-2 text-sm font-medium text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
+              <ArrowLeft className="h-4 w-4" /> Back to Home
+            </Link>
+          </div>
           <p className="text-sm uppercase tracking-[0.3em] text-primary">Learn & Grow</p>
           <h1 className="mt-4 font-serif text-5xl text-foreground md:text-6xl">Knowledge <span className="text-gold-gradient">Center</span></h1>
           <p className="mx-auto mt-5 text-muted-foreground">

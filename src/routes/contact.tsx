@@ -23,9 +23,9 @@ function Contact() {
 
   return (
     <div className="bg-white">
-      <section className="relative w-full py-20 md:py-28 bg-[#0B1F3A] overflow-hidden">
+      <section className="relative w-full py-20 md:py-28 bg-[#14345A] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45 transition-transform duration-700 hover:scale-105" style={{ backgroundImage: `url('/photo-1423666639041-f56000c27a9a.avif')` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1F3A]/50 via-[#0B1F3A]/70 to-[#0B1F3A]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14345A]/50 via-[#14345A]/70 to-[#14345A]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-[#D4AF37]/15 blur-[100px] rounded-full pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-6 text-center z-10">
           <span className="text-[#D4AF37] font-semibold tracking-[0.25em] text-xs sm:text-sm uppercase mb-3 block drop-shadow">GET IN TOUCH</span>
@@ -42,23 +42,23 @@ function Contact() {
       <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-2">
         <div className="space-y-8">
           <div className="flex items-start gap-4">
-            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#0B1F3A]"><Phone className="h-5 w-5" /></span>
+            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#14345A]"><Phone className="h-5 w-5" /></span>
             <div>
-              <h3 className="font-serif text-xl text-[#0B1F3A]">Contact Number</h3>
+              <h3 className="font-serif text-xl text-[#14345A]">Contact Number</h3>
               <p className="mt-1 text-[#6B7280]">+91 79939 99958</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#0B1F3A]"><Mail className="h-5 w-5" /></span>
+            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#14345A]"><Mail className="h-5 w-5" /></span>
             <div>
-              <h3 className="font-serif text-xl text-[#0B1F3A]">Email</h3>
+              <h3 className="font-serif text-xl text-[#14345A]">Email</h3>
               <p className="mt-1 text-[#6B7280]">info@royalrealitygroups.com</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#0B1F3A]"><MapPin className="h-5 w-5" /></span>
+            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#14345A]"><MapPin className="h-5 w-5" /></span>
             <div>
-              <h3 className="font-serif text-xl text-[#0B1F3A]">Office Address</h3>
+              <h3 className="font-serif text-xl text-[#14345A]">Office Address</h3>
               <p className="mt-1 leading-relaxed text-[#6B7280]">
                 D.No: 10-8/5/25 Akella Elite, Flat No: 102, Ground Floor, Sairam Colony,
                 Kommadi, Madhurawada, Visakhapatnam 530048
@@ -66,11 +66,10 @@ function Contact() {
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#0B1F3A]"><Clock className="h-5 w-5" /></span>
+            <span className="rounded-lg bg-[#D4AF37] p-3 text-[#14345A]"><Clock className="h-5 w-5" /></span>
             <div>
-              <h3 className="font-serif text-xl text-[#0B1F3A]">Office Hours</h3>
-              <p className="mt-1 text-[#6B7280]">Mon - Sat: 9:00 AM - 7:00 PM</p>
-              <p className="text-[#6B7280]">Sunday: By Appointment</p>
+              <h3 className="font-serif text-xl text-[#14345A]">Office Hours</h3>
+              <p className="mt-1 text-[#6B7280]">Open All Days: 9:00 AM – 9:00 PM</p>
             </div>
           </div>
         </div>
@@ -80,13 +79,13 @@ function Contact() {
           <div className="flex border-b border-[#E5E7EB]">
             <button
               onClick={() => setActiveTab("enquiry")}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${activeTab === "enquiry" ? "border-b-2 border-[#D4AF37] text-[#0B1F3A]" : "text-[#6B7280] hover:text-[#1F2937]"}`}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${activeTab === "enquiry" ? "border-b-2 border-[#D4AF37] text-[#14345A]" : "text-[#6B7280] hover:text-[#1F2937]"}`}
             >
               General Enquiry
             </button>
             <button
               onClick={() => setActiveTab("booking")}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${activeTab === "booking" ? "border-b-2 border-[#D4AF37] text-[#0B1F3A]" : "text-[#6B7280] hover:text-[#1F2937]"}`}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${activeTab === "booking" ? "border-b-2 border-[#D4AF37] text-[#14345A]" : "text-[#6B7280] hover:text-[#1F2937]"}`}
             >
               Book Site Visit
             </button>
@@ -112,7 +111,7 @@ function Contact() {
                   <option value="other">Other</option>
                 </select>
                 <textarea required rows={4} placeholder="Your Message" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <button type="submit" className="mt-5 w-full rounded-lg bg-[#0B1F3A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#0B1F3A] transition-colors">
+                <button type="submit" className="mt-5 w-full rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors">
                   Send Enquiry
                 </button>
                 {submitted && (
@@ -141,7 +140,7 @@ function Contact() {
                   <option value="evening">Evening (3 PM - 6 PM)</option>
                 </select>
                 <textarea rows={3} placeholder="Any specific requirements or questions?" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <button type="submit" className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0B1F3A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#0B1F3A] transition-colors">
+                <button type="submit" className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors">
                   <Calendar className="h-4 w-4" /> Book Site Visit
                 </button>
                 {bookingSubmitted && (

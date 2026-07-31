@@ -19,11 +19,11 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <div className="bg-white">
-      <section className="relative w-full py-20 md:py-28 bg-[#0B1528] overflow-hidden">
+      <section className="relative w-full py-20 md:py-28 bg-[#14345A] overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45 transition-transform duration-700 hover:scale-105" style={{ backgroundImage: `url('/photo-1545324418-cc1a3fa10c00.jpg')` }} />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style={{ backgroundImage: `url('/photo-1545324418-cc1a3fa10c00.jpg')` }} />
         {/* Soft Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1528]/50 via-[#0B1528]/70 to-[#0B1528]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14345A]/40 via-[#14345A]/60 to-[#14345A]" />
         {/* Subtle Warm Center Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-amber-500/15 blur-[100px] rounded-full pointer-events-none" />
         {/* Banner Content */}

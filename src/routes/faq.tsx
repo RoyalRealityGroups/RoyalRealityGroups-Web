@@ -124,10 +124,10 @@ function FAQ() {
 
   return (
     <>
-      <section className="bg-[#F8FAFC] py-20 text-center">
+      <section className="bg-[#F8FAFC] pt-32 pb-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-sm uppercase tracking-[0.3em] text-[#D4AF37]">Got Questions?</p>
-          <h1 className="mt-4 font-serif text-5xl text-[#0B1F3A] md:text-6xl">Frequently Asked <span className="text-[#D4AF37]">Questions</span></h1>
+          <h1 className="mt-4 font-serif text-5xl text-[#14345A] md:text-6xl">Frequently Asked <span className="text-[#D4AF37]">Questions</span></h1>
           <p className="mx-auto mt-5 text-[#6B7280]">Find answers to common questions about buying property with Royal Reality Groups.</p>
         </div>
       </section>
@@ -135,7 +135,7 @@ function FAQ() {
       <section className="mx-auto max-w-4xl px-6 py-16">
         {faqs.map((section) => (
           <div key={section.category} className="mb-10">
-            <h2 className="mb-4 font-serif text-2xl text-[#0B1F3A]">{section.category}</h2>
+            <h2 className="mb-4 font-serif text-2xl text-[#14345A]">{section.category}</h2>
             <div className="space-y-3">
               {section.questions.map((faq, i) => {
                 const id = `${section.category}-${i}`;

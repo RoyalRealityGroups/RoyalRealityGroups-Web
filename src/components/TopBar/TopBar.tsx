@@ -6,7 +6,7 @@ import { companyInfo } from '../../data/companyInfo';
  */
 export function TopBar() {
   return (
-    <div className="bg-brand-dark border-b border-brand-gold/10 py-2 hidden md:block">
+    <div className="bg-[#14345A] border-b border-brand-gold/10 py-2 hidden md:block">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm">
         {/* Contact info */}
         <div className="flex items-center gap-6 text-white/80 font-body">

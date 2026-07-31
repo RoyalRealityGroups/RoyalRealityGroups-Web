@@ -7,9 +7,27 @@ import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 
 const imageMap: Record<string, string> = {
-  "chitra-vilasa-garden-city": project1,
-  "integral-sunrise-city": project2,
-  "royal-luxury-residences": project3,
+  "ak-chitra-vilasa-garden-city": "/AK.jpg",
+  "anand-vihar": project1,
+  "city-of-gold-by-iconica": "/IMG_20260724_125441.jpg",
+  "cmr-karlan-grand": project2,
+  "cmr-karlan-one": project2,
+  "cmr-karlan-residency": project2,
+  "cmr-karlan-square": project2,
+  "iconica-capitol-and-crown": project3,
+  "integrals-sunrise-city": project2,
+  "irise-prime": project3,
+  "lorven-heights": "/Lorvens Heights Elevation.jpeg",
+  "navayuga-plotting": project1,
+  "northstar-golden-valley": "/NORTH.jpg",
+  "prasanthi-nilayam": "/PRASANTI.jpg",
+  "rudra-seniors": project3,
+  "siri-nirman-blue-arena": project2,
+  "sss-dream-homes": project3,
+  "sss-grand-homes": project3,
+  "sss-sunrise": project1,
+  "yaksha-abode": project2,
+  "yaksha-pride": project2,
 };
 
 export const Route = createFileRoute("/compare")({
@@ -46,7 +64,7 @@ function Compare() {
       <section className="bg-[#F8FAFC] py-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-sm uppercase tracking-[0.3em] text-[#D4AF37]">Make Informed Decisions</p>
-          <h1 className="mt-4 font-serif text-5xl text-[#0B1F3A] md:text-6xl">Compare <span className="text-[#D4AF37]">Properties</span></h1>
+          <h1 className="mt-4 font-serif text-5xl text-[#14345A] md:text-6xl">Compare <span className="text-[#D4AF37]">Properties</span></h1>
           <p className="mx-auto mt-5 text-[#6B7280]">Select up to 3 properties to compare them side by side.</p>
         </div>
       </section>

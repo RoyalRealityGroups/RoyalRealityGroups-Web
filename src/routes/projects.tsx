@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet, useMatch } from "@tanstack/react-router";
-import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import heroImg from "@/assets/hero-home.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -9,9 +9,27 @@ import { properties, filterProperties } from "@/lib/properties";
 
 // Map property IDs to imported images so Vite resolves them correctly
 const imageMap: Record<string, string> = {
-  "chitra-vilasa-garden-city": project1,
-  "integral-sunrise-city": project2,
-  "royal-luxury-residences": project3,
+  "ak-chitra-vilasa-garden-city": "/AK.jpg",
+  "anand-vihar": project1,
+  "city-of-gold-by-iconica": "/IMG_20260724_125441.jpg",
+  "cmr-karlan-grand": project2,
+  "cmr-karlan-one": project2,
+  "cmr-karlan-residency": project2,
+  "cmr-karlan-square": project2,
+  "iconica-capitol-and-crown": project3,
+  "integrals-sunrise-city": project2,
+  "irise-prime": project3,
+  "lorven-heights": "/Lorvens Heights Elevation.jpeg",
+  "navayuga-plotting": project1,
+  "northstar-golden-valley": "/NORTH.jpg",
+  "prasanthi-nilayam": "/PRASANTI.jpg",
+  "rudra-seniors": project3,
+  "siri-nirman-blue-arena": project2,
+  "sss-dream-homes": project3,
+  "sss-grand-homes": project3,
+  "sss-sunrise": project1,
+  "yaksha-abode": project2,
+  "yaksha-pride": project2,
 };
 
 export const Route = createFileRoute("/projects")({
@@ -58,9 +76,9 @@ function Projects() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="relative w-full py-20 md:py-28 bg-[#0B1F3A] overflow-hidden">
+      <section className="relative w-full py-20 md:py-28 bg-[#14345A] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45 transition-transform duration-700 hover:scale-105" style={{ backgroundImage: `url('/photo-1600585154340-be6161a56a0c.avif')` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1F3A]/50 via-[#0B1F3A]/70 to-[#0B1F3A]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14345A]/50 via-[#14345A]/70 to-[#14345A]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-[#D4AF37]/15 blur-[100px] rounded-full pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-6 text-center z-10">
           <span className="text-[#D4AF37] font-semibold tracking-[0.25em] text-xs sm:text-sm uppercase mb-3 block drop-shadow">OUR PORTFOLIO</span>
@@ -108,16 +126,6 @@ function Projects() {
                 <option value="villa">Villas</option>
                 <option value="apartment">Apartments</option>
                 <option value="commercial">Commercial</option>
-              </select>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-sm border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-primary"
-              >
-                <option value="all">All Status</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
-                <option value="upcoming">Upcoming</option>
               </select>
               <select
                 value={locationFilter}
@@ -176,9 +184,9 @@ function Projects() {
       {/* CTA */}
       <section className="bg-[#F8FAFC] py-16 text-center">
         <div className="mx-auto max-w-2xl px-6">
-          <h2 className="font-serif text-3xl text-[#0B1F3A]">Can't find what you're looking for?</h2>
+          <h2 className="font-serif text-3xl text-[#14345A]">Can't find what you're looking for?</h2>
           <p className="mt-3 text-[#6B7280]">Tell us your requirements and we'll help you find the perfect property.</p>
-          <Link to="/contact" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[#D4AF37] px-7 py-3 text-sm font-semibold uppercase tracking-wider text-[#0B1F3A] hover:bg-[#C79A1B]">
+          <Link to="/contact" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[#D4AF37] px-7 py-3 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B]">
             Contact Us <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
