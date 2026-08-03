@@ -1,10 +1,94 @@
-import { Phone } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Phone, X, Calendar, MessageCircle } from "lucide-react";
 
 export function FloatingButtons() {
+  const [showEnquiry, setShowEnquiry] = useState(false);
+  const [enquirySubmitted, setEnquirySubmitted] = useState(false);
+
+  // Scroll-based popup - show after 40% scroll
+  useEffect(() => {
+    let shown = false;
+    const handleScroll = () => {
+      if (shown) return;
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 40) {
+        shown = true;
+        setShowEnquiry(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
+      {/* Scroll-Based Enquiry Popup */}
+      {showEnquiry && !enquirySubmitted && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4">
+          <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+            <button
+              onClick={() => setShowEnquiry(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <div className="text-center mb-4">
+              <MessageCircle className="mx-auto h-10 w-10 text-[#D4AF37]" />
+              <h3 className="mt-2 font-serif text-xl text-[#14345A]">Interested in Premium Properties?</h3>
+              <p className="mt-1 text-sm text-gray-600">Get expert guidance & exclusive deals</p>
+            </div>
+            <form onSubmit={(e) => { e.preventDefault(); setEnquirySubmitted(true); setTimeout(() => setShowEnquiry(false), 2000); }}>
+              <div className="space-y-3">
+                <input required placeholder="Your Name" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
+                <input required type="tel" placeholder="Mobile Number" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
+                <select className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]">
+                  <option value="">I'm interested in...</option>
+                  <option value="site-visit">Schedule a Site Visit</option>
+                  <option value="expert">Talk to an Expert</option>
+                  <option value="callback">Request a Callback</option>
+                  <option value="project">Enquire about Projects</option>
+                </select>
+                <button type="submit" className="w-full rounded-lg bg-[#D4AF37] px-4 py-2.5 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B]">
+                  Submit Enquiry
+                </button>
+              </div>
+            </form>
+            <p className="mt-3 text-center text-xs text-gray-400">We'll get back to you within 30 minutes</p>
+          </div>
+        </div>
+      )}
+
+      {/* Success message */}
+      {showEnquiry && enquirySubmitted && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-2xl">
+            <div className="mx-auto h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+              <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h3 className="font-serif text-xl text-[#14345A]">Thank You!</h3>
+            <p className="mt-2 text-sm text-gray-600">Our team will contact you shortly.</p>
+          </div>
+        </div>
+      )}
+
       {/* Floating buttons stacked on right side */}
       <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-50 flex flex-col items-center gap-2 sm:gap-3">
+        {/* Instagram Floating Button */}
+        <a
+          href="https://www.instagram.com/vizagpropertyadda?igsh=ZXZ3bW04emkydWk%3D&utm_source=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Follow on Instagram"
+          className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white shadow-lg transition-transform hover:scale-110"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 sm:h-7 sm:w-7">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+          </svg>
+        </a>
+
         {/* WhatsApp Floating Button */}
         <a
           href="https://wa.me/917993999958?text=Hi%2C%20I%20am%20interested%20in%20Royal%20Reality%20Groups%20properties.%20Please%20share%20details."
