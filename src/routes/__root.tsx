@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingButtons } from "@/components/FloatingButtons";
+import { DashboardChatbot } from "@/components/DashboardChatbot";
 
 function NotFoundComponent() {
   return (
@@ -86,6 +87,7 @@ function RootComponent() {
         </main>
         <Footer />
         <FloatingButtons />
+        <DashboardChatbot />
       </div>
     </QueryClientProvider>
   );

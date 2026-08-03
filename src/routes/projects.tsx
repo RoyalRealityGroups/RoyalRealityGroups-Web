@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { createFileRoute, Link, Outlet, useMatch } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, SlidersHorizontal, X, MapPin, Check } from "lucide-react";
 import heroImg from "@/assets/hero-home.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 import { properties, filterProperties } from "@/lib/properties";
+import type { Property } from "@/lib/properties";
 
 // Map property IDs to imported images so Vite resolves them correctly
 const imageMap: Record<string, string> = {
@@ -63,6 +64,7 @@ function Projects() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Property | null>(null);
 
   const filtered = filterProperties({
     type: typeFilter,
@@ -155,29 +157,85 @@ function Projects() {
             </button>
           </div>
         ) : (
+          <>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((p) => (
-              <article key={p.id} className="group overflow-hidden rounded-md border border-border/60 bg-card transition-colors hover:border-primary/40">
+              <article
+                key={p.id}
+                className="group overflow-hidden rounded-md border border-border/60 bg-card transition-colors hover:border-primary/40 cursor-pointer"
+                onClick={() => setSelectedProject(p)}
+              >
                 <div className="relative overflow-hidden">
                   <img src={imageMap[p.id] || project1} alt={p.title} width={600} height={400} loading="lazy" className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-[#14345A] px-4 py-2 rounded-lg text-sm font-medium">Tap to Open</span>
+                  </div>
                 </div>
                 <div className="p-5">
                   <h3 className="font-serif text-xl text-foreground">{p.title}</h3>
+                  <p className="mt-1 text-xs text-[#D4AF37] flex items-center gap-1"><MapPin className="h-3 w-3" />{p.location}</p>
                   <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{p.shortDesc}</p>
-
-                  <div className="mt-4 flex items-center justify-end">
-                    <Link
-                      to="/projects/$projectId"
-                      params={{ projectId: p.id }}
-                      className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                    >
-                      View Details <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-[#14345A]">{p.price}</span>
+                    <span className="text-xs text-muted-foreground">{p.area}</span>
                   </div>
                 </div>
               </article>
             ))}
           </div>
+
+          {/* Project Popup Modal */}
+          {selectedProject && (
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4" onClick={() => setSelectedProject(null)}>
+              <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 z-10 rounded-full bg-white/90 p-2 shadow hover:bg-white" aria-label="Close">
+                  <X className="h-5 w-5 text-gray-700" />
+                </button>
+                <img src={imageMap[selectedProject.id] || project1} alt={selectedProject.title} className="h-56 w-full object-cover rounded-t-2xl" />
+                <div className="p-6">
+                  <h2 className="font-serif text-2xl text-[#14345A]">{selectedProject.title}</h2>
+                  <p className="mt-1 text-sm text-[#D4AF37] flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{selectedProject.location}, {selectedProject.city}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-600">{selectedProject.description}</p>
+                  
+                  <div className="mt-4 flex items-center gap-4">
+                    <span className="text-lg font-bold text-[#14345A]">{selectedProject.price}</span>
+                    <span className="text-sm text-gray-500">{selectedProject.area}</span>
+                  </div>
+
+                  <div className="mt-4">
+                    <h4 className="text-sm font-semibold text-[#14345A] mb-2">Key Highlights</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      {selectedProject.highlights.slice(0, 6).map((h) => (
+                        <div key={h} className="flex items-center gap-2 text-xs text-gray-600">
+                          <Check className="h-3.5 w-3.5 text-green-500 shrink-0" />
+                          {h}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex gap-3">
+                    <Link
+                      to="/projects/$projectId"
+                      params={{ projectId: selectedProject.id }}
+                      onClick={() => setSelectedProject(null)}
+                      className="flex-1 rounded-lg bg-[#14345A] px-4 py-3 text-center text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#1E4A7A] transition-colors"
+                    >
+                      Know More
+                    </Link>
+                    <Link
+                      to="/contact"
+                      onClick={() => setSelectedProject(null)}
+                      className="flex-1 rounded-lg bg-[#D4AF37] px-4 py-3 text-center text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B] transition-colors"
+                    >
+                      Enquire Now
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          </>
         )}
       </section>
 

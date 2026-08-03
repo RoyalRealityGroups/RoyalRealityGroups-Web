@@ -41,10 +41,10 @@ export function Navbar() {
           </div>
           <div className="flex items-center gap-1.5">
             <span className="mr-2 text-white/60">Follow Us:</span>
-            <a href="https://www.facebook.com/share/1BcXQwzFpm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-1 hover:text-[#D4AF37]"><Facebook className="h-3.5 w-3.5" /></a>
-            <a href="https://www.instagram.com/vizagpropertyadda?igsh=ZXZ3bW04emkydWk%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-1 hover:text-[#D4AF37]"><Instagram className="h-3.5 w-3.5" /></a>
-            <a href="https://www.youtube.com/@royalrealitygroups" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="p-1 hover:text-[#D4AF37]"><Youtube className="h-3.5 w-3.5" /></a>
-            <a href="https://www.linkedin.com/company/royalrealitygroups" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-1 hover:text-[#D4AF37]"><Linkedin className="h-3.5 w-3.5" /></a>
+            <a href="https://www.facebook.com/share/1BcXQwzFpm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-1 hover:text-[#D4AF37]"><Facebook className="h-4 w-4" /></a>
+            <a href="https://www.instagram.com/vizagpropertyadda?igsh=ZXZ3bW04emkydWk%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-1 hover:text-[#D4AF37]"><Instagram className="h-4 w-4" /></a>
+            <a href="https://www.youtube.com/@royalrealitygroups" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="p-1 hover:text-[#D4AF37]"><Youtube className="h-4 w-4" /></a>
+            <a href="https://www.linkedin.com/company/royalrealitygroups" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-1 hover:text-[#D4AF37]"><Linkedin className="h-4 w-4" /></a>
           </div>
         </div>
       </div>
@@ -137,6 +137,27 @@ export function Navbar() {
       {open && (
         <div className="border-t border-white/10 bg-[#14345A] lg:hidden">
           <div className="flex flex-col px-8 py-6">
+            {/* Mobile Search Bar */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const query = formData.get("mobileSearch") as string;
+                if (query.trim()) {
+                  setOpen(false);
+                  window.location.href = `/projects?search=${encodeURIComponent(query.trim())}`;
+                }
+              }}
+              className="mb-4 flex items-center rounded-full border border-white/30 bg-white/10 px-3 py-2"
+            >
+              <Search className="h-4 w-4 text-white/60 shrink-0" />
+              <input
+                name="mobileSearch"
+                type="text"
+                placeholder="Search projects..."
+                className="flex-1 bg-transparent px-2 text-sm text-white placeholder-white/50 outline-none"
+              />
+            </form>
             {navItems.map((item) => (
               <Link
                 key={item.to + item.label}

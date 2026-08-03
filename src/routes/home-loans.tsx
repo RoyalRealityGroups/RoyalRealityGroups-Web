@@ -69,7 +69,7 @@ function HomeLoans() {
     <>
       {/* Home Loan Chatbot */}
       {chatOpen && (
-        <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl">
+        <div className="fixed bottom-44 right-4 sm:right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl">
           <div className="flex items-center justify-between rounded-t-2xl bg-[#1A1A2E] px-4 py-3">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-5 w-5 text-[#D4AF37]" />
@@ -122,7 +122,7 @@ function HomeLoans() {
       {!chatOpen && (
         <button
           onClick={() => setChatOpen(true)}
-          className="fixed bottom-20 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-full bg-[#1A1A2E] px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-[#2A2A4E] transition-colors"
+          className="fixed bottom-44 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-full bg-[#1A1A2E] px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-[#2A2A4E] transition-colors"
         >
           <MessageCircle className="h-5 w-5 text-[#D4AF37]" /> Loan Assist
         </button>
