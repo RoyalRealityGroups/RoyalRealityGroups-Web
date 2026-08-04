@@ -29,9 +29,9 @@ const whyChooseUs = [
 ];
 
 const projects = [
-  { img: project1, title: "Iconica Capitol & Crown", id: "iconica-capitol-and-crown", desc: "Ultra-luxury residences with private gardens, smart home features, and world-class amenities in a premium gated community.", location: "Visakhapatnam" },
-  { img: project2, title: "Integral's Sunrise City", id: "integrals-sunrise-city", desc: "Premium gated community villas with lush green surroundings, modern amenities, and excellent connectivity near Anandapuram.", location: "Visakhapatnam" },
-  { img: project3, title: "Siri Nirman – Blue Arena", id: "siri-nirman-blue-arena", desc: "A landmark project offering spacious homes with contemporary design, premium finishes, and prime location advantage.", location: "Visakhapatnam" },
+  { img: "/iconic.jpg", title: "Iconica Capitol & Crown", id: "iconica-capitol-and-crown", desc: "Ultra-luxury residences with private gardens, smart home features, and world-class amenities in a premium gated community.", location: "Visakhapatnam" },
+  { img: "/integral-project.jpg", title: "Integral's Sunrise City", id: "integrals-sunrise-city", desc: "Premium gated community villas with lush green surroundings, modern amenities, and excellent connectivity near Anandapuram.", location: "Visakhapatnam" },
+  { img: "/blue arena.jpg", title: "Siri Nirman – Blue Arena", id: "siri-nirman-blue-arena", desc: "A landmark project offering spacious homes with contemporary design, premium finishes, and prime location advantage.", location: "Visakhapatnam" },
 ];
 
 const testimonials = [
