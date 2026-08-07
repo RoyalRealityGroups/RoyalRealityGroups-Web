@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { Phone, X, Calendar, MessageCircle } from "lucide-react";
+import { Phone, X, Calendar, MessageCircle, Loader2 } from "lucide-react";
+import { submitLead } from "@/lib/api";
 
 export function FloatingButtons() {
   const [showEnquiry, setShowEnquiry] = useState(false);
   const [enquirySubmitted, setEnquirySubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   // Scroll-based popup - show after 40% scroll
   useEffect(() => {
@@ -19,6 +22,38 @@ export function FloatingButtons() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleEnquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const mobile = formData.get("mobile") as string;
+    const interest = formData.get("interest") as string;
+
+    try {
+      const result = await submitLead({
+        name,
+        mobile,
+        lead_source: "WEBSITE",
+        property_requirement: interest || "General Enquiry",
+        remarks: `Website popup enquiry - Interested in: ${interest || "Not specified"}`,
+      });
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+
+      setEnquirySubmitted(true);
+      setTimeout(() => setShowEnquiry(false), 2000);
+    } catch (error: any) {
+      setSubmitError(error.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -38,19 +73,22 @@ export function FloatingButtons() {
               <h3 className="mt-2 font-serif text-xl text-[#14345A]">Interested in Premium Properties?</h3>
               <p className="mt-1 text-sm text-gray-600">Get expert guidance & exclusive deals</p>
             </div>
-            <form onSubmit={(e) => { e.preventDefault(); setEnquirySubmitted(true); setTimeout(() => setShowEnquiry(false), 2000); }}>
+            <form onSubmit={handleEnquirySubmit}>
               <div className="space-y-3">
-                <input required placeholder="Your Name" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
-                <input required type="tel" placeholder="Mobile Number" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
-                <select className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]">
+                <input name="name" required placeholder="Your Name" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
+                <input name="mobile" required type="tel" placeholder="Mobile Number" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]" />
+                <select name="interest" className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-[#D4AF37]">
                   <option value="">I'm interested in...</option>
-                  <option value="site-visit">Schedule a Site Visit</option>
-                  <option value="expert">Talk to an Expert</option>
-                  <option value="callback">Request a Callback</option>
-                  <option value="project">Enquire about Projects</option>
+                  <option value="Schedule a Site Visit">Schedule a Site Visit</option>
+                  <option value="Talk to an Expert">Talk to an Expert</option>
+                  <option value="Request a Callback">Request a Callback</option>
+                  <option value="Enquire about Projects">Enquire about Projects</option>
                 </select>
-                <button type="submit" className="w-full rounded-lg bg-[#D4AF37] px-4 py-2.5 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B]">
-                  Submit Enquiry
+                {submitError && (
+                  <p className="text-xs text-red-500">{submitError}</p>
+                )}
+                <button type="submit" disabled={isSubmitting} className="w-full rounded-lg bg-[#D4AF37] px-4 py-2.5 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B] disabled:opacity-60 flex items-center justify-center gap-2">
+                  {isSubmitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</> : "Submit Enquiry"}
                 </button>
               </div>
             </form>

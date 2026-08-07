@@ -26,6 +26,37 @@ function KnowledgeArticlePage() {
   // Simple markdown-like rendering for the content
   const renderContent = (content: string) => {
     return content.split("\n\n").map((block, i) => {
+      // Table rendering
+      if (block.startsWith("|")) {
+        const rows = block.split("\n").filter((l) => l.startsWith("|"));
+        if (rows.length > 0) {
+          const parseRow = (row: string) => row.split("|").filter((cell) => cell.trim() !== "").map((cell) => cell.trim());
+          const header = parseRow(rows[0]);
+          const dataRows = rows.slice(1).map(parseRow);
+          return (
+            <div key={i} className="my-6 overflow-hidden rounded-xl shadow-md">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-[#14345A]">
+                    {header.map((cell, j) => (
+                      <th key={j} className="px-5 py-3.5 text-left text-sm font-semibold text-white">{cell}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataRows.map((row, j) => (
+                    <tr key={j} className={`${j % 2 === 0 ? "bg-white" : "bg-blue-50/50"} border-b border-border/30 transition-colors hover:bg-[#D4AF37]/10`}>
+                      {row.map((cell, k) => (
+                        <td key={k} className={`px-5 py-3 ${k === 0 ? "font-medium text-[#14345A]" : "text-muted-foreground"}`}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+      }
       if (block.startsWith("**") && block.endsWith("**")) {
         return <h3 key={i} className="mt-6 mb-3 font-serif text-xl text-foreground">{block.replace(/\*\*/g, "")}</h3>;
       }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { MapPin, Building2, Trees, Handshake, Award, Headphones, ArrowRight, Star, Quote, ShieldCheck, BadgeCheck, Landmark, UserCheck, PhoneCall, Calendar, Home as HomeIcon, Store, Leaf } from "lucide-react";
+import { MapPin, Building2, Trees, Handshake, Award, Headphones, ArrowRight, Star, Quote, ShieldCheck, BadgeCheck, Landmark, UserCheck, PhoneCall, Calendar, Home as HomeIcon, Store, Leaf, Loader2 } from "lucide-react";
+import { submitLead } from "@/lib/api";
 const heroImg = "/family.png";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
@@ -74,6 +75,30 @@ const testimonials = [
 
 function Index() {
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const handleBookingSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+    const formData = new FormData(e.currentTarget);
+
+    const result = await submitLead({
+      name: formData.get("name") as string,
+      mobile: formData.get("mobile") as string,
+      lead_source: "WEBSITE",
+      property_requirement: (formData.get("propertyType") as string) || "Site Visit",
+      remarks: `Homepage site visit booking - Property type: ${formData.get("propertyType") || "Not specified"}, Preferred date: ${formData.get("visitDate") || "Not specified"}`,
+    });
+
+    setIsSubmitting(false);
+    if (result.success) {
+      setBookingSubmitted(true);
+    } else {
+      setSubmitError(result.error || "Failed to submit");
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -245,22 +270,23 @@ function Index() {
                 <p className="mt-2 text-sm text-[#6B7280]">We'll call you shortly to confirm your visit.</p>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setBookingSubmitted(true); }}>
+              <form onSubmit={handleBookingSubmit}>
                 <h3 className="mb-4 font-serif text-xl text-[#14345A]">Book Site Visit</h3>
                 <div className="space-y-4">
-                  <input required placeholder="Your Name" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                  <input required type="tel" placeholder="Mobile Number" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                  <select className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
+                  <input name="name" required placeholder="Your Name" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <input name="mobile" required type="tel" placeholder="Mobile Number" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <select name="propertyType" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
                     <option value="">Property Interested In</option>
-                    <option value="plots">Plots</option>
-                    <option value="villas">Villas</option>
-                    <option value="apartments">Apartments</option>
-                    <option value="commercial">Commercial</option>
+                    <option value="Plots">Plots</option>
+                    <option value="Villas">Villas</option>
+                    <option value="Apartments">Apartments</option>
+                    <option value="Commercial">Commercial</option>
                   </select>
-                  <input type="date" placeholder="Preferred Visit Date" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]" />
+                  <input name="visitDate" type="date" placeholder="Preferred Visit Date" className="w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]" />
+                  {submitError && <p className="text-xs text-red-500">{submitError}</p>}
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="submit" className="flex items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-4 py-3 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B]">
-                      <Calendar className="h-4 w-4" /> Book Visit
+                    <button type="submit" disabled={isSubmitting} className="flex items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-4 py-3 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#C79A1B] disabled:opacity-60">
+                      {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Calendar className="h-4 w-4" />} {isSubmitting ? "..." : "Book Visit"}
                     </button>
                     <a href="tel:+917993999958" className="flex items-center justify-center gap-2 rounded-lg border border-[#14345A] px-4 py-3 text-sm font-semibold uppercase tracking-wider text-[#14345A] hover:bg-[#14345A] hover:text-white">
                       <PhoneCall className="h-4 w-4" /> Callback

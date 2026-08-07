@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { MessageCircle, X, Send, Bot } from "lucide-react";
+import { MessageCircle, X, Send, Bot, Loader2 } from "lucide-react";
+import { submitLead } from "@/lib/api";
 
 const CHAT_TOPICS = [
   { id: "projects", label: "🏠 Project Information" },
@@ -15,15 +16,35 @@ export function DashboardChatbot() {
   const [step, setStep] = useState<"topics" | "lead" | "done">("topics");
   const [selectedTopic, setSelectedTopic] = useState("");
   const [leadData, setLeadData] = useState({ name: "", mobile: "", email: "", requirement: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const handleTopicSelect = (topicId: string) => {
     setSelectedTopic(topicId);
     setStep("lead");
   };
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStep("done");
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    const topicLabel = CHAT_TOPICS.find(t => t.id === selectedTopic)?.label || selectedTopic;
+    const result = await submitLead({
+      name: leadData.name,
+      mobile: leadData.mobile,
+      email: leadData.email || undefined,
+      lead_source: "WEBSITE",
+      property_requirement: topicLabel,
+      remarks: `Chatbot enquiry - Topic: ${topicLabel}, Requirement: ${leadData.requirement || "Not specified"}`,
+    });
+
+    setIsSubmitting(false);
+    if (result.success) {
+      setStep("done");
+    } else {
+      setSubmitError(result.error || "Failed to submit");
+    }
   };
 
   const resetChat = () => {
@@ -124,11 +145,13 @@ export function DashboardChatbot() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-4 py-2.5 text-sm font-semibold text-[#14345A] hover:bg-[#C79A1B]"
+                  disabled={isSubmitting}
+                  className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-4 py-2.5 text-sm font-semibold text-[#14345A] hover:bg-[#C79A1B] disabled:opacity-60"
                 >
-                  <Send className="h-4 w-4" /> Submit
+                  {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} {isSubmitting ? "Sending..." : "Submit"}
                 </button>
               </div>
+              {submitError && <p className="text-xs text-red-500 mt-2">{submitError}</p>}
             </form>
           </>
         )}
