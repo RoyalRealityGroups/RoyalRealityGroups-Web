@@ -1,6 +1,162 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const LAUNCH_KEY = "royal-reality-launched";
+
+// Confetti celebration effect using canvas
+function ConfettiCelebration({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (!active || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d")!;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = [
+      "#D4AF37", "#F5E6A3", "#B8960C", "#FFD700", "#FFA500",
+      "#FF6347", "#FF1493", "#00CED1", "#7B68EE", "#32CD32",
+      "#FFFFFF", "#E8D48B", "#14345A", "#FF4500", "#ADFF2F",
+    ];
+
+    interface ConfettiPiece {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      width: number;
+      height: number;
+      color: string;
+      rotation: number;
+      rotationSpeed: number;
+      gravity: number;
+      opacity: number;
+      fadeSpeed: number;
+      shape: "rect" | "circle" | "star";
+    }
+
+    const pieces: ConfettiPiece[] = [];
+
+    // Create confetti pieces from multiple burst points (like party poppers from sides)
+    function createBurst(originX: number, originY: number, count: number, spread: number) {
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.random() * spread - spread / 2) * (Math.PI / 180);
+        const velocity = Math.random() * 15 + 8;
+        const shapes: ("rect" | "circle" | "star")[] = ["rect", "rect", "circle", "star"];
+        pieces.push({
+          x: originX,
+          y: originY,
+          vx: Math.cos(angle - Math.PI / 2) * velocity * (originX < canvas.width / 2 ? 1 : -1),
+          vy: Math.sin(angle - Math.PI / 2) * velocity - Math.random() * 5,
+          width: Math.random() * 10 + 5,
+          height: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 15,
+          gravity: 0.25 + Math.random() * 0.15,
+          opacity: 1,
+          fadeSpeed: 0.003 + Math.random() * 0.005,
+          shape: shapes[Math.floor(Math.random() * shapes.length)],
+        });
+      }
+    }
+
+    // Burst from top-left and top-right (party popper style)
+    createBurst(0, canvas.height * 0.3, 80, 120);
+    createBurst(canvas.width, canvas.height * 0.3, 80, 120);
+    // Burst from center top
+    createBurst(canvas.width / 2, 0, 60, 160);
+    // Extra bursts from bottom corners going up
+    createBurst(canvas.width * 0.2, canvas.height, 40, 90);
+    createBurst(canvas.width * 0.8, canvas.height, 40, 90);
+
+    function drawStar(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number) {
+      const spikes = 5;
+      const outerRadius = size;
+      const innerRadius = size / 2;
+      let rot = (Math.PI / 2) * 3;
+      const step = Math.PI / spikes;
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        ctx.lineTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+        rot += step;
+        ctx.lineTo(cx + Math.cos(rot) * innerRadius, cy + Math.sin(rot) * innerRadius);
+        rot += step;
+      }
+      ctx.lineTo(cx, cy - outerRadius);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let activePieces = 0;
+
+      for (const piece of pieces) {
+        if (piece.opacity <= 0) continue;
+        activePieces++;
+
+        piece.x += piece.vx;
+        piece.y += piece.vy;
+        piece.vy += piece.gravity;
+        piece.vx *= 0.99;
+        piece.rotation += piece.rotationSpeed;
+        piece.opacity -= piece.fadeSpeed;
+
+        ctx.save();
+        ctx.translate(piece.x, piece.y);
+        ctx.rotate((piece.rotation * Math.PI) / 180);
+        ctx.globalAlpha = Math.max(0, piece.opacity);
+        ctx.fillStyle = piece.color;
+
+        if (piece.shape === "rect") {
+          ctx.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
+        } else if (piece.shape === "circle") {
+          ctx.beginPath();
+          ctx.arc(0, 0, piece.width / 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          drawStar(ctx, 0, 0, piece.width / 2);
+        }
+
+        ctx.restore();
+      }
+
+      if (activePieces > 0) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    // Handle resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      cancelAnimationFrame(animationRef.current);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [active]);
+
+  if (!active) return null;
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none fixed inset-0 z-[10000]"
+      style={{ width: "100vw", height: "100vh" }}
+    />
+  );
+}
 
 function Particle({ delay, size, x, duration }: { delay: number; size: number; x: number; duration: number }) {
   return (
@@ -217,6 +373,7 @@ function LaunchScreen({ onLaunch }: { onLaunch: () => void }) {
 
 export function LaunchGate({ children }: { children: React.ReactNode }) {
   const [launched, setLaunched] = useState<boolean | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const isLaunched = localStorage.getItem(LAUNCH_KEY);
@@ -226,6 +383,10 @@ export function LaunchGate({ children }: { children: React.ReactNode }) {
   const handleLaunch = useCallback(() => {
     localStorage.setItem(LAUNCH_KEY, "true");
     setLaunched(true);
+    // Trigger confetti celebration when home page is revealed
+    setShowConfetti(true);
+    // Auto-hide confetti after 5 seconds
+    setTimeout(() => setShowConfetti(false), 5000);
   }, []);
 
   // Still checking localStorage
@@ -235,7 +396,12 @@ export function LaunchGate({ children }: { children: React.ReactNode }) {
 
   // Already launched — show website directly
   if (launched) {
-    return <>{children}</>;
+    return (
+      <>
+        <ConfettiCelebration active={showConfetti} />
+        {children}
+      </>
+    );
   }
 
   // Launch screen
