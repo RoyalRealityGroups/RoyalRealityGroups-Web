@@ -1,7 +1,7 @@
 // Centralized API configuration for lead submission
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8011';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.testing.royalrealitygroupsofficial.com';
 
-// Read access token from localStorage/sessionStorage
+// Read access token from localStorage/sessionStorage (for authenticated CRM users)
 function getAccessToken(): string | null {
   return localStorage.getItem("access_token") || sessionStorage.getItem("access_token");
 }
@@ -28,7 +28,7 @@ export async function submitLead(data: LeadPayload): Promise<{ success: boolean;
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/lead/leads/`, {
+    const response = await fetch(`${API_BASE_URL}/api/lead/public/create/`, {
       method: "POST",
       headers,
       body: JSON.stringify(data),
