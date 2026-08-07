@@ -40,7 +40,7 @@ export function DashboardChatbot() {
         aria-label="Open Chatbot"
       >
         <Bot className="h-5 w-5 text-[#D4AF37]" />
-        <span className="text-xs sm:text-sm">Need Help?</span>
+        <span className="hidden sm:inline">Need Help?</span>
       </button>
     );
   }
