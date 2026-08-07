@@ -179,9 +179,27 @@ function Contact() {
                 <input name="bookingEmail" type="email" placeholder="Email (optional)" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
                 <select name="bookingProject" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
                   <option value="">Select Project</option>
-                  <option value="Chitra Vilasa Garden City">Chitra Vilasa Garden City</option>
-                  <option value="Integral Sunrise City">Integral Sunrise City</option>
-                  <option value="Royal Luxury Residences">Royal Luxury Residences</option>
+                  <option value="AK Chitra Vilasa Garden City">AK Chitra Vilasa Garden City</option>
+                  <option value="Anand Vihar">Anand Vihar</option>
+                  <option value="ICONICA – City of Gold">ICONICA – City of Gold</option>
+                  <option value="CMR Karlan Grand">CMR Karlan Grand</option>
+                  <option value="CMR One by Karlan">CMR One by Karlan</option>
+                  <option value="CMR Karlan Residency">CMR Karlan Residency</option>
+                  <option value="CMR Karlan Square">CMR Karlan Square</option>
+                  <option value="ICONICA – Capitol & The Crown">ICONICA – Capitol & The Crown</option>
+                  <option value="Integral's Sunrise City">Integral's Sunrise City</option>
+                  <option value="Irise Prime">Irise Prime</option>
+                  <option value="Lorven Heights">Lorven Heights</option>
+                  <option value="Navayuga Plotting">Navayuga Plotting</option>
+                  <option value="NorthStar Golden Valley">NorthStar Golden Valley</option>
+                  <option value="Prasanthi Nilayam">Prasanthi Nilayam</option>
+                  <option value="Rudra Seniors">Rudra Seniors</option>
+                  <option value="SIRI NIRMAN - Blue Arena">SIRI NIRMAN - Blue Arena</option>
+                  <option value="SSS Dream Homes">SSS Dream Homes</option>
+                  <option value="SSS Grand Homes">SSS Grand Homes</option>
+                  <option value="SSS Sunrise">SSS Sunrise</option>
+                  <option value="Yaksha Abode">Yaksha Abode</option>
+                  <option value="Yaksha Pride">Yaksha Pride</option>
                 </select>
                 <input name="bookingDate" required type="date" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]" />
                 <select name="bookingTime" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
