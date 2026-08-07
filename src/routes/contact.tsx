@@ -43,6 +43,7 @@ function Contact() {
     setIsSubmitting(false);
     if (result.success) {
       setSubmitted(true);
+      (e.target as HTMLFormElement).reset();
     } else {
       setSubmitError(result.error || "Failed to submit");
     }
@@ -67,6 +68,7 @@ function Contact() {
     setIsSubmitting(false);
     if (result.success) {
       setBookingSubmitted(true);
+      form.reset();
     } else {
       setSubmitError(result.error || "Failed to submit");
     }
