@@ -51,7 +51,7 @@ function Calculators() {
     <div className="bg-white">
       {/* Home Loan Chatbot */}
       {chatOpen && (
-        <div className="fixed bottom-44 right-4 sm:right-6 z-50 w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl">
+        <div className="fixed top-20 right-4 sm:right-5 z-50 w-[320px] max-w-[calc(100vw-6rem)] rounded-2xl border border-[#E5E7EB] bg-white shadow-2xl">
           <div className="flex items-center justify-between rounded-t-2xl bg-[#14345A] px-4 py-3">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-5 w-5 text-[#D4AF37]" />
@@ -104,7 +104,7 @@ function Calculators() {
       {!chatOpen && (
         <button
           onClick={() => setChatOpen(true)}
-          className="fixed bottom-44 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-full bg-[#14345A] px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-[#1E4A7A] transition-colors"
+          className="fixed bottom-[11.5rem] right-4 sm:right-5 z-50 flex items-center gap-2 rounded-full bg-[#14345A] px-4 py-3 text-sm font-medium text-white shadow-lg hover:bg-[#1E4A7A] transition-colors"
         >
           <MessageCircle className="h-5 w-5 text-[#D4AF37]" /> Loan Assist
         </button>
@@ -306,14 +306,17 @@ function RegistrationGSTCalculator() {
   const [propertyType, setPropertyType] = useState("residential");
   const [isUnderConstruction, setIsUnderConstruction] = useState(false);
 
-  const stampRate = propertyType === "commercial" ? 0.06 : 0.05;
-  const stampDuty = propertyValue * stampRate;
-  const transferDuty = propertyValue * 0.005;
-  const registrationFee = propertyValue * 0.005;
-  const gstRate = isUnderConstruction ? 0.05 : 0;
+  const registrationCost = propertyValue * 0.07;
+  const gstRate = isUnderConstruction
+    ? propertyType === "commercial"
+      ? 0.12
+      : propertyValue <= 4000000
+        ? 0.01
+        : 0.05
+    : 0;
   const gstAmount = propertyValue * gstRate;
   const userCharges = 1000;
-  const totalCost = stampDuty + transferDuty + registrationFee + gstAmount + userCharges;
+  const totalCost = registrationCost + gstAmount + userCharges;
 
   const handleNumberInput = (setter: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -346,7 +349,7 @@ function RegistrationGSTCalculator() {
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" id="underConstruction" checked={isUnderConstruction} onChange={(e) => setIsUnderConstruction(e.target.checked)} className="h-4 w-4 accent-primary" />
-            <label htmlFor="underConstruction" className="text-sm font-medium text-foreground">Under Construction (GST applicable at 5%)</label>
+            <label htmlFor="underConstruction" className="text-sm font-medium text-foreground">Under Construction (GST applicable)</label>
           </div>
         </div>
 
@@ -354,20 +357,12 @@ function RegistrationGSTCalculator() {
           <h3 className="text-center font-serif text-xl text-foreground">Registration & GST Costs</h3>
           <div className="mt-6 space-y-4">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <span className="text-sm text-muted-foreground">Stamp Duty ({(stampRate * 100).toFixed(0)}%)</span>
-              <span className="text-sm text-foreground">₹{stampDuty.toLocaleString("en-IN")}</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <span className="text-sm text-muted-foreground">Transfer Duty (0.5%)</span>
-              <span className="text-sm text-foreground">₹{transferDuty.toLocaleString("en-IN")}</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <span className="text-sm text-muted-foreground">Registration Fee (0.5%)</span>
-              <span className="text-sm text-foreground">₹{registrationFee.toLocaleString("en-IN")}</span>
+              <span className="text-sm text-muted-foreground">Registration Fee (7%)</span>
+              <span className="text-sm text-foreground">₹{registrationCost.toLocaleString("en-IN")}</span>
             </div>
             {isUnderConstruction && (
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
-                <span className="text-sm text-muted-foreground">GST (5%)</span>
+                <span className="text-sm text-muted-foreground">GST ({(gstRate * 100).toFixed(0)}%)</span>
                 <span className="text-sm text-foreground">₹{gstAmount.toLocaleString("en-IN")}</span>
               </div>
             )}
@@ -380,7 +375,6 @@ function RegistrationGSTCalculator() {
               <span className="font-serif text-2xl text-primary">₹{totalCost.toLocaleString("en-IN")}</span>
             </div>
           </div>
-          <p className="mt-4 text-xs text-muted-foreground">* Rates applicable for Andhra Pradesh. GST applies only for under-construction properties. Ready-to-move properties are exempt from GST.</p>
         </div>
       </div>
     </div>
@@ -388,26 +382,21 @@ function RegistrationGSTCalculator() {
 }
 
 function InvestmentCalculator() {
-  const [investmentAmount, setInvestmentAmount] = useState(5000000);
-  const [appreciationRate, setAppreciationRate] = useState(12);
-  const [holdingYears, setHoldingYears] = useState(5);
-  const [rentalYield, setRentalYield] = useState(3);
+  const [investmentStr, setInvestmentStr] = useState('5000000');
+  const [appreciationStr, setAppreciationStr] = useState('12');
+  const [holdingStr, setHoldingStr] = useState('5');
+  const [rentalStr, setRentalStr] = useState('15000');
+
+  const investmentAmount = parseFloat(investmentStr) || 0;
+  const appreciationRate = parseFloat(appreciationStr) || 0;
+  const holdingYears = parseFloat(holdingStr) || 0;
+  const monthlyRental = parseFloat(rentalStr) || 0;
 
   const futureValue = investmentAmount * Math.pow(1 + appreciationRate / 100, holdingYears);
   const capitalGain = futureValue - investmentAmount;
-  const totalRentalIncome = investmentAmount * (rentalYield / 100) * holdingYears;
+  const totalRentalIncome = monthlyRental * 12 * holdingYears;
   const totalReturn = capitalGain + totalRentalIncome;
-  const annualizedReturn = holdingYears > 0 ? (Math.pow((futureValue + totalRentalIncome) / investmentAmount, 1 / holdingYears) - 1) * 100 : 0;
-
-  const handleNumberInput = (setter: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    if (val === '' || val === '0') {
-      setter(0);
-      return;
-    }
-    const num = parseFloat(val);
-    if (!isNaN(num)) setter(num);
-  };
+  const annualizedReturn = holdingYears > 0 && investmentAmount > 0 ? (Math.pow((futureValue + totalRentalIncome) / investmentAmount, 1 / holdingYears) - 1) * 100 : 0;
 
   return (
     <div>
@@ -418,20 +407,20 @@ function InvestmentCalculator() {
         <div className="space-y-6">
           <div>
             <label className="text-sm font-medium text-foreground">Investment Amount (₹)</label>
-            <input type="text" inputMode="numeric" value={investmentAmount || ''} onChange={handleNumberInput(setInvestmentAmount)} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
+            <input type="text" inputMode="numeric" value={investmentStr} onChange={(e) => setInvestmentStr(e.target.value.replace(/[^0-9.]/g, ''))} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
           <div>
             <label className="text-sm font-medium text-foreground">Expected Appreciation (% p.a.)</label>
-            <input type="text" inputMode="decimal" value={appreciationRate || ''} onChange={handleNumberInput(setAppreciationRate)} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
-            <input type="range" min={5} max={30} step={0.5} value={appreciationRate} onChange={(e) => setAppreciationRate(Number(e.target.value))} className="mt-2 w-full accent-primary" />
+            <input type="text" inputMode="decimal" value={appreciationStr} onChange={(e) => setAppreciationStr(e.target.value.replace(/[^0-9.]/g, ''))} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
+            <input type="range" min={5} max={30} step={0.5} value={appreciationRate} onChange={(e) => setAppreciationStr(e.target.value)} className="mt-2 w-full accent-primary" />
           </div>
           <div>
             <label className="text-sm font-medium text-foreground">Holding Period (Years)</label>
-            <input type="text" inputMode="numeric" value={holdingYears || ''} onChange={handleNumberInput(setHoldingYears)} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
+            <input type="text" inputMode="numeric" value={holdingStr} onChange={(e) => setHoldingStr(e.target.value.replace(/[^0-9.]/g, ''))} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
           <div>
-            <label className="text-sm font-medium text-foreground">Rental Yield (% p.a.)</label>
-            <input type="text" inputMode="decimal" value={rentalYield || ''} onChange={handleNumberInput(setRentalYield)} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
+            <label className="text-sm font-medium text-foreground">Rental Per Month (₹)</label>
+            <input type="text" inputMode="numeric" value={rentalStr} onChange={(e) => setRentalStr(e.target.value.replace(/[^0-9.]/g, ''))} className="mt-2 w-full rounded-sm border border-input bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
           </div>
         </div>
 
@@ -444,19 +433,19 @@ function InvestmentCalculator() {
             </div>
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <span className="text-sm text-muted-foreground">Capital Appreciation</span>
-              <span className="text-sm text-green-600">+₹{Math.round(capitalGain).toLocaleString("en-IN")}</span>
+              <span className={`text-sm ${capitalGain >= 0 ? 'text-green-600' : 'text-red-600'}`}>{capitalGain >= 0 ? '+' : '-'}₹{Math.round(Math.abs(capitalGain)).toLocaleString("en-IN")}</span>
             </div>
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <span className="text-sm text-muted-foreground">Total Rental Income</span>
-              <span className="text-sm text-green-600">+₹{Math.round(totalRentalIncome).toLocaleString("en-IN")}</span>
+              <span className={`text-sm ${totalRentalIncome > 0 ? 'text-green-600' : 'text-red-600'}`}>{totalRentalIncome > 0 ? '+' : ''}₹{Math.round(totalRentalIncome).toLocaleString("en-IN")}</span>
             </div>
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <span className="text-sm text-muted-foreground">Total Return</span>
-              <span className="font-serif text-2xl text-primary">₹{Math.round(totalReturn).toLocaleString("en-IN")}</span>
+              <span className={`font-serif text-2xl ${totalReturn >= 0 ? 'text-primary' : 'text-red-600'}`}>{totalReturn < 0 ? '-' : ''}₹{Math.round(Math.abs(totalReturn)).toLocaleString("en-IN")}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Annualized Return</span>
-              <span className="font-serif text-lg text-green-600">{annualizedReturn.toFixed(1)}%</span>
+              <span className={`font-serif text-lg ${annualizedReturn >= 0 ? 'text-green-600' : 'text-red-600'}`}>{annualizedReturn.toFixed(1)}%</span>
             </div>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">* These are estimates based on assumed appreciation rates. Actual returns may vary.</p>

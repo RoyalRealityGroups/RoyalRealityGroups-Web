@@ -40,8 +40,8 @@ function KnowledgeCenterListing() {
       <section className="border-b border-border/60 bg-card pt-24 pb-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
           <div className="mb-6 flex justify-start">
-            <Link to="/" className="inline-flex items-center gap-2 rounded-lg border border-[#14345A] px-4 py-2 text-sm font-medium text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
-              <ArrowLeft className="h-4 w-4" /> Back to Home
+            <Link to="/blog" className="inline-flex items-center gap-2 rounded-lg border border-[#14345A] px-4 py-2 text-sm font-medium text-[#14345A] hover:bg-[#14345A] hover:text-white transition-colors">
+              <ArrowLeft className="h-4 w-4" /> Back to Insights
             </Link>
           </div>
           <p className="text-sm uppercase tracking-[0.3em] text-primary">Learn & Grow</p>

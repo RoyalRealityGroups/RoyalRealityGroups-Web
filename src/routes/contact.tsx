@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, Phone, MapPin, Calendar, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Calendar, Clock, Loader2 } from "lucide-react";
+import { submitLead } from "@/lib/api";
 
 export const Route = createFileRoute("/contact")({
   component: Contact,
@@ -20,6 +21,56 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState<"enquiry" | "booking">("enquiry");
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const handleEnquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const result = await submitLead({
+      name: `${formData.get("firstName")} ${formData.get("lastName")}`,
+      mobile: (formData.get("phone") as string) || "",
+      email: (formData.get("email") as string) || undefined,
+      lead_source: "WEBSITE",
+      property_requirement: (formData.get("interest") as string) || "General Enquiry",
+      remarks: `Contact page enquiry: ${formData.get("message") || ""}`,
+    });
+
+    setIsSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setSubmitError(result.error || "Failed to submit");
+    }
+  };
+
+  const handleBookingSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const result = await submitLead({
+      name: formData.get("bookingName") as string,
+      mobile: formData.get("bookingPhone") as string,
+      email: (formData.get("bookingEmail") as string) || undefined,
+      lead_source: "WEBSITE",
+      property_requirement: (formData.get("bookingProject") as string) || "Site Visit",
+      remarks: `Site Visit Booking - Date: ${formData.get("bookingDate")}, Time: ${formData.get("bookingTime")}, Notes: ${formData.get("bookingNotes") || "None"}`,
+    });
+
+    setIsSubmitting(false);
+    if (result.success) {
+      setBookingSubmitted(true);
+    } else {
+      setSubmitError(result.error || "Failed to submit");
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -93,55 +144,53 @@ function Contact() {
 
           <div className="p-8">
             {activeTab === "enquiry" ? (
-              <form
-                onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
-              >
+              <form onSubmit={handleEnquirySubmit}>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <input required placeholder="First Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                  <input required placeholder="Last Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <input name="firstName" required placeholder="First Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <input name="lastName" required placeholder="Last Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
                 </div>
-                <input required type="email" placeholder="Your Email" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <input type="tel" placeholder="Phone Number" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <select className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
+                <input name="email" type="email" placeholder="Your Email (optional)" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                <input name="phone" type="tel" placeholder="Phone Number" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                <select name="interest" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
                   <option value="">Interested In...</option>
-                  <option value="plots">Plots</option>
-                  <option value="villas">Villas</option>
-                  <option value="apartments">Apartments</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="other">Other</option>
+                  <option value="Plots">Plots</option>
+                  <option value="Villas">Villas</option>
+                  <option value="Apartments">Apartments</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Other">Other</option>
                 </select>
-                <textarea required rows={4} placeholder="Your Message" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <button type="submit" className="mt-5 w-full rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors">
-                  Send Enquiry
+                <textarea name="message" required rows={4} placeholder="Your Message" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                {submitError && <p className="mt-2 text-sm text-red-500">{submitError}</p>}
+                <button type="submit" disabled={isSubmitting} className="mt-5 w-full rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
+                  {isSubmitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</> : "Send Enquiry"}
                 </button>
                 {submitted && (
-                  <p className="mt-4 text-center text-sm text-[#D4AF37]">Thank you! We'll be in touch shortly.</p>
+                  <p className="mt-4 text-center text-2xl font-semibold text-[#D4AF37]">Thank you! We'll be in touch shortly.</p>
                 )}
               </form>
             ) : (
-              <form
-                onSubmit={(e) => { e.preventDefault(); setBookingSubmitted(true); }}
-              >
+              <form onSubmit={handleBookingSubmit}>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <input required placeholder="Your Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                  <input required type="tel" placeholder="Phone Number" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <input name="bookingName" required placeholder="Your Name" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                  <input name="bookingPhone" required type="tel" placeholder="Phone Number" className="rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
                 </div>
-                <input type="email" placeholder="Email (optional)" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <select className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
+                <input name="bookingEmail" type="email" placeholder="Email (optional)" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                <select name="bookingProject" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
                   <option value="">Select Project</option>
-                  <option value="chitra-vilasa">Chitra Vilasa Garden City</option>
-                  <option value="integral-sunrise">Integral Sunrise City</option>
-                  <option value="royal-luxury">Royal Luxury Residences</option>
+                  <option value="Chitra Vilasa Garden City">Chitra Vilasa Garden City</option>
+                  <option value="Integral Sunrise City">Integral Sunrise City</option>
+                  <option value="Royal Luxury Residences">Royal Luxury Residences</option>
                 </select>
-                <input required type="date" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]" />
-                <select className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
-                  <option value="morning">Morning (9 AM - 12 PM)</option>
-                  <option value="afternoon">Afternoon (12 PM - 3 PM)</option>
-                  <option value="evening">Evening (3 PM - 6 PM)</option>
+                <input name="bookingDate" required type="date" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]" />
+                <select name="bookingTime" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] outline-none focus:border-[#D4AF37]">
+                  <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
+                  <option value="Afternoon (12 PM - 3 PM)">Afternoon (12 PM - 3 PM)</option>
+                  <option value="Evening (3 PM - 6 PM)">Evening (3 PM - 6 PM)</option>
                 </select>
-                <textarea rows={3} placeholder="Any specific requirements or questions?" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
-                <button type="submit" className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors">
-                  <Calendar className="h-4 w-4" /> Book Site Visit
+                <textarea name="bookingNotes" rows={3} placeholder="Any specific requirements or questions?" className="mt-4 w-full rounded-lg border border-[#D1D5DB] bg-white px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none focus:border-[#D4AF37]" />
+                {submitError && <p className="mt-2 text-sm text-red-500">{submitError}</p>}
+                <button type="submit" disabled={isSubmitting} className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#14345A] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white hover:bg-[#D4AF37] hover:text-[#14345A] transition-colors disabled:opacity-60">
+                  {isSubmitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</> : <><Calendar className="h-4 w-4" /> Book Site Visit</>}
                 </button>
                 {bookingSubmitted && (
                   <p className="mt-4 text-center text-sm text-[#D4AF37]">Site visit booked! Our team will confirm shortly.</p>

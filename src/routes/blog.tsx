@@ -22,9 +22,9 @@ const insightCategories = [
     title: "Latest Real Estate Updates",
     icon: Newspaper,
     articles: [
-      { id: "market-news-vizag-2026", title: "Visakhapatnam Real Estate Market News 2026", excerpt: "IT corridor expansion, proposed executive capital, and infrastructure developments driving growth.", category: "Market News", date: "July 2026", readTime: "5 min", image: project1 },
-      { id: "govt-notifications-ap", title: "Government Notifications for AP Real Estate", excerpt: "Latest state government orders on stamp duty, registration charges, and RERA updates.", category: "Govt Notifications", date: "July 2026", readTime: "4 min", image: heroImg },
-      { id: "infrastructure-developments", title: "Infrastructure Developments in Vizag", excerpt: "Bhogapuram Airport, Metro Rail, Beach Corridor, and IT parks transforming the city.", category: "Infrastructure", date: "June 2026", readTime: "6 min", image: project2 },
+      { id: "market-news-vizag-2026", title: "Visakhapatnam Real Estate Market News 2026", excerpt: "IT corridor expansion, proposed executive capital, and infrastructure developments driving growth.", category: "Market News", date: "July 2026", readTime: "5 min", image: "/insights.png" },
+      { id: "govt-notifications-ap", title: "Government Notifications for AP Real Estate", excerpt: "Latest state government orders on stamp duty, registration charges, and RERA updates.", category: "Govt Notifications", date: "July 2026", readTime: "4 min", image: "/Notification.jpg" },
+      { id: "infrastructure-developments", title: "Infrastructure Developments in Vizag", excerpt: "Bhogapuram Airport, Metro Rail, Beach Corridor, and IT parks transforming the city.", category: "Infrastructure", date: "June 2026", readTime: "6 min", image: "/infracture.jpg" },
     ]
   },
   {
@@ -32,9 +32,9 @@ const insightCategories = [
     title: "Property Approvals",
     icon: FileCheck,
     articles: [
-      { id: "gvmc-vs-vmrda", title: "GVMC vs VMRDA: Which Approval Matters?", excerpt: "Understanding the difference between GVMC and VMRDA approvals before investing.", category: "GVMC", date: "July 2026", readTime: "5 min", image: heroImg },
-      { id: "dtcp-approval-guide", title: "DTCP Approval – Complete Guide", excerpt: "Everything you need to know about Directorate of Town & Country Planning approvals.", category: "DTCP", date: "June 2026", readTime: "7 min", image: project3 },
-      { id: "rera-registration", title: "RERA Registration: Why It Matters", excerpt: "How RERA protects buyers and what to check before buying a RERA-registered project.", category: "RERA", date: "June 2026", readTime: "5 min", image: project1 },
+      { id: "gvmc-vs-vmrda", title: "GVMC vs VMRDA: Which Approval Matters?", excerpt: "Understanding the difference between GVMC and VMRDA approvals before investing.", category: "GVMC", date: "July 2026", readTime: "5 min", image: "/approval.jpg" },
+      { id: "dtcp-approval-guide", title: "DTCP Approval – Complete Guide", excerpt: "Everything you need to know about Directorate of Town & Country Planning approvals.", category: "DTCP", date: "June 2026", readTime: "7 min", image: "/DTPC-optimized.jpg" },
+      { id: "rera-registration", title: "RERA Registration: Why It Matters", excerpt: "How RERA protects buyers and what to check before buying a RERA-registered project.", category: "RERA", date: "June 2026", readTime: "5 min", image: "/RERA.png" },
     ]
   },
   {
@@ -42,9 +42,9 @@ const insightCategories = [
     title: "Documents Required Before Buying Property",
     icon: BookOpen,
     articles: [
-      { id: "sale-deed-guide", title: "Sale Deed: Everything You Need to Know", excerpt: "What is a sale deed, how to verify it, and why it's the most important property document.", category: "Documents", date: "June 2026", readTime: "5 min", image: project2 },
-      { id: "encumbrance-certificate", title: "Encumbrance Certificate (EC) Explained", excerpt: "How to obtain EC, its validity, and why it's essential for property transactions.", category: "Documents", date: "June 2026", readTime: "4 min", image: heroImg },
-      { id: "property-tax-oc-guide", title: "Property Tax, OC & Building Approvals", excerpt: "Understanding occupancy certificate, property tax receipts, and building plan approvals.", category: "Documents", date: "May 2026", readTime: "6 min", image: project3 },
+      { id: "sale-deed-guide", title: "Sale Deed: Everything You Need to Know", excerpt: "What is a sale deed, how to verify it, and why it's the most important property document.", category: "Documents", date: "June 2026", readTime: "5 min", image: "/Sale.png" },
+      { id: "encumbrance-certificate", title: "Encumbrance Certificate (EC) Explained", excerpt: "How to obtain EC, its validity, and why it's essential for property transactions.", category: "Documents", date: "June 2026", readTime: "4 min", image: "/Embrance.png" },
+      { id: "property-tax-oc-guide", title: "Property Tax, OC & Building Approvals", excerpt: "Understanding occupancy certificate, property tax receipts, and building plan approvals.", category: "Documents", date: "May 2026", readTime: "6 min", image: "/property.png" },
     ]
   },
   {
@@ -52,9 +52,9 @@ const insightCategories = [
     title: "Flat Buying Process",
     icon: ShoppingBag,
     articles: [
-      { id: "step-by-step-buying", title: "Step-by-Step Guide: From Selection to Registration", excerpt: "Complete walkthrough from shortlisting properties to final registration and possession.", category: "Process", date: "July 2026", readTime: "8 min", image: project1 },
-      { id: "home-loan-tips-first-time", title: "Home Loan Tips for First-Time Buyers", excerpt: "Proven tips to improve eligibility, reduce interest, and speed up approval.", category: "Finance", date: "June 2026", readTime: "5 min", image: project3 },
-      { id: "property-registration-guide-ap", title: "Property Registration Guide for AP", excerpt: "Documents needed, stamp duty calculation, and how to avoid common mistakes.", category: "Legal Guide", date: "June 2026", readTime: "8 min", image: heroImg },
+      { id: "step-by-step-buying", title: "Step-by-Step Guide: From Selection to Registration", excerpt: "Complete walkthrough from shortlisting properties to final registration and possession.", category: "Process", date: "July 2026", readTime: "8 min", image: "/step.png" },
+      { id: "home-loan-tips-first-time", title: "Home Loan Tips for First-Time Buyers", excerpt: "Proven tips to improve eligibility, reduce interest, and speed up approval.", category: "Finance", date: "June 2026", readTime: "5 min", image: "/home-loan.jpg" },
+      { id: "property-registration-guide-ap", title: "Property Registration Guide for AP", excerpt: "Documents needed, stamp duty calculation, and how to avoid common mistakes.", category: "Legal Guide", date: "June 2026", readTime: "8 min", image: "/AP.png" },
     ]
   },
 ];
@@ -112,7 +112,7 @@ function Blog() {
               {category.articles.map((post) => (
                 <article key={post.id} className="group overflow-hidden rounded-xl border border-[#E5E7EB] bg-white transition-all hover:border-[#D4AF37]/40 hover:shadow-md">
                   <div className="overflow-hidden">
-                    <img src={post.image} alt={post.title} width={600} height={400} loading="lazy" className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={post.image} alt={post.title} loading="lazy" className="h-48 w-full object-cover rounded-t-xl" style={{ imageRendering: "auto" }} />
                   </div>
                   <div className="p-5">
                     <div className="flex items-center gap-3 text-xs text-[#6B7280]">
