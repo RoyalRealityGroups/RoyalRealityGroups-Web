@@ -162,7 +162,7 @@ export function DashboardChatbot() {
               <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
             </div>
             <p className="text-sm font-medium text-gray-800">Thank you, {leadData.name}!</p>
-            <p className="mt-1 text-xs text-gray-500">Our expert will contact you within 30 minutes.</p>
+            <p className="mt-1 text-xs text-gray-500">Our expert will contact you shortly.</p>
             <button onClick={resetChat} className="mt-4 text-xs text-[#D4AF37] underline">Start New Conversation</button>
           </div>
         )}
