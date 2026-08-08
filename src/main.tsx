@@ -2,15 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 import { getRouter } from "./router";
-import { LaunchGate } from "./components/LaunchGate";
 import "./styles.css";
 
 const router = getRouter();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <LaunchGate>
-      <RouterProvider router={router} />
-    </LaunchGate>
+    <RouterProvider router={router} />
   </StrictMode>
 );
