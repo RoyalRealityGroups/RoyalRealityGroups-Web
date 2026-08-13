@@ -167,9 +167,6 @@ function Projects() {
               >
                 <div className="relative overflow-hidden">
                   <img src={imageMap[p.id] || project1} alt={p.title} width={600} height={400} loading="lazy" className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-[#14345A] px-4 py-2 rounded-lg text-sm font-medium">Tap to Open</span>
-                  </div>
                 </div>
                 <div className="p-5">
                   <h3 className="font-serif text-xl text-foreground">{p.title}</h3>
