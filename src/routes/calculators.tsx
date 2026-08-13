@@ -304,19 +304,12 @@ function EligibilityCalculator() {
 function RegistrationGSTCalculator() {
   const [propertyValue, setPropertyValue] = useState(5000000);
   const [propertyType, setPropertyType] = useState("residential");
-  const [isUnderConstruction, setIsUnderConstruction] = useState(false);
 
-  const registrationCost = propertyValue * 0.07;
-  const gstRate = isUnderConstruction
-    ? propertyType === "commercial"
-      ? 0.12
-      : propertyValue <= 4000000
-        ? 0.01
-        : 0.05
-    : 0;
+  const registrationRate = 0.075;
+  const registrationCost = propertyValue * registrationRate;
+  const gstRate = propertyType === "commercial" ? 0.12 : 0.05;
   const gstAmount = propertyValue * gstRate;
-  const userCharges = 1000;
-  const totalCost = registrationCost + gstAmount + userCharges;
+  const totalCost = registrationCost + gstAmount;
 
   const handleNumberInput = (setter: (v: number) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -347,28 +340,18 @@ function RegistrationGSTCalculator() {
               <option value="commercial">Commercial</option>
             </select>
           </div>
-          <div className="flex items-center gap-3">
-            <input type="checkbox" id="underConstruction" checked={isUnderConstruction} onChange={(e) => setIsUnderConstruction(e.target.checked)} className="h-4 w-4 accent-primary" />
-            <label htmlFor="underConstruction" className="text-sm font-medium text-foreground">Under Construction (GST applicable)</label>
-          </div>
         </div>
 
         <div className="rounded-md border border-primary/30 bg-primary/5 p-6">
           <h3 className="text-center font-serif text-xl text-foreground">Registration & GST Costs</h3>
           <div className="mt-6 space-y-4">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <span className="text-sm text-muted-foreground">Registration Fee (7%)</span>
+              <span className="text-sm text-muted-foreground">Registration (7.5%)</span>
               <span className="text-sm text-foreground">₹{registrationCost.toLocaleString("en-IN")}</span>
             </div>
-            {isUnderConstruction && (
-              <div className="flex items-center justify-between border-b border-border/60 pb-3">
-                <span className="text-sm text-muted-foreground">GST ({(gstRate * 100).toFixed(0)}%)</span>
-                <span className="text-sm text-foreground">₹{gstAmount.toLocaleString("en-IN")}</span>
-              </div>
-            )}
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <span className="text-sm text-muted-foreground">User Charges</span>
-              <span className="text-sm text-foreground">₹{userCharges.toLocaleString("en-IN")}</span>
+              <span className="text-sm text-muted-foreground">GST</span>
+              <span className="text-sm text-foreground">₹{gstAmount.toLocaleString("en-IN")}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">Total Cost</span>
